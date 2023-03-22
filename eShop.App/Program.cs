@@ -1,7 +1,10 @@
+using eShop.DAL.DI;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDataContext(builder.Configuration);
 
 var app = builder.Build();
 
