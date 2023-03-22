@@ -1,5 +1,8 @@
-﻿namespace eShop.DAL.Interfaces.Repositories;
+﻿using eShop.Core.Interfaces;
+using eShop.DAL.Entities;
 
-public interface IProductRepository
+namespace eShop.DAL.Interfaces.Repositories;
+
+public interface IProductRepository : IGenericRepositoryAsync<ProductEntity>
 {
 }

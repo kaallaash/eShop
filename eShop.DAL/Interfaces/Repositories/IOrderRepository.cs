@@ -3,6 +3,6 @@ using eShop.DAL.Entities;
 
 namespace eShop.DAL.Interfaces.Repositories;
 
-public interface IUserRepository : IGenericRepositoryAsync<UserEntity>
+public interface IOrderRepository : IGenericRepositoryAsync<OrderEntity>
 {
 }

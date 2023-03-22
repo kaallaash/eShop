@@ -1,4 +1,6 @@
 ﻿using eShop.DAL.Context;
+using eShop.DAL.Interfaces.Repositories;
+using eShop.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,9 +13,9 @@ public static class DataAccessRegister
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        //services.AddScoped<IDrawingRepository<DrawingEntity>, DrawingRepository>();
-        //services.AddScoped<IDrawingRepository<DrawingEntity>, DrawingRepository>();
-        //services.AddScoped<IDrawingRepository<DrawingEntity>, DrawingRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
 
         services.AddDbContext<DatabaseContext>(op =>
         {
