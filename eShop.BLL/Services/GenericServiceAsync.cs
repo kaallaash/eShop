@@ -35,15 +35,15 @@ public class GenericServiceAsync<TModel, TEntity> : IGenericServiceAsync<TModel>
     public virtual async Task<TModel> UpdateAsync(TModel model, CancellationToken cancellationToken) =>
         _mapper.Map<TModel>(await _genericRepository.UpdateAsync(_mapper.Map<TEntity>(model), cancellationToken));
 
-    public virtual async Task DeleteAsync(int id, CancellationToken cancellationToken)
+    public virtual async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken)
     {
         var entity = await _genericRepository.GetByIdAsync(id, cancellationToken);
 
         if (entity is not null)
         {
-            await _genericRepository.DeleteAsync(id, cancellationToken);
+            return await _genericRepository.DeleteAsync(id, cancellationToken);
         }
 
-        //return _mapper.Map<TModel>(entity);
+        return false;
     }
 }
