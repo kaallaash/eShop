@@ -1,4 +1,6 @@
 ﻿using eShop.BLL.Automapper;
+using eShop.BLL.Interfaces;
+using eShop.BLL.Services;
 using eShop.DAL.DI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,9 +14,9 @@ public static class BusinessLogicRegister
         IConfiguration configuration)
     {
         services.AddAutoMapper(typeof(MappingProfile));
-        //services.AddScoped<IDrawingService<Drawing, int>, DrawingService>();
-        //services.AddScoped<IDrawingService<Drawing, int>, DrawingService>();
-        //services.AddScoped<IDrawingService<Drawing, int>, DrawingService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IOrderService, OrderService>();
         services.AddDataContext(configuration);
     }
 }
