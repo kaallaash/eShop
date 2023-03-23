@@ -1,3 +1,4 @@
+using eShop.App.Automapper;
 using eShop.BLL.DI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 //builder.Services.AddRazorPages();
 
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddBll(builder.Configuration);
 
 var app = builder.Build();
@@ -29,6 +31,6 @@ app.UseAuthorization();
 //app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Product}/{action=Index}/{id?}");
 
 app.Run();
