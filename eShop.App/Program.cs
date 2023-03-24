@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddBll(builder.Configuration);
+builder.Services.AddAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
@@ -21,6 +22,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
