@@ -1,10 +1,11 @@
-﻿using eShop.Core.Interfaces;
+﻿using eShop.Core.Entities;
+using eShop.Core.Interfaces;
 using eShop.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace eShop.DAL.Repositories;
 
-public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
+public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : BaseEntity
 {
     private readonly DatabaseContext _context;
     private readonly DbSet<T> _dbSet;
@@ -43,7 +44,7 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : cl
 
     public virtual async Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken)
     {
-        return await _dbSet.FindAsync(id, cancellationToken);
+        return await _dbSet.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public virtual async Task<T> UpdateAsync(T obj, CancellationToken cancellationToken)
