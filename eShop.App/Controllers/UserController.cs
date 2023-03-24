@@ -2,7 +2,6 @@
 using eShop.App.ViewModels;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
-using eShop.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eShop.App.Controllers;

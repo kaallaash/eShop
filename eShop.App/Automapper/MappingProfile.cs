@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eShop.App.ViewModels;
+using eShop.App.ViewModels.Order;
 using eShop.App.ViewModels.Product;
 using eShop.BLL.Models;
 
@@ -14,5 +15,8 @@ public class MappingProfile : Profile
         CreateMap<ProductModel, ProductViewModel>().ReverseMap();
         CreateMap<ProductModel, ProductCreateViewModel>().ReverseMap();
         CreateMap<ProductModel, ProductUpdateViewModel>().ReverseMap();
+        CreateMap<OrderModel, OrderViewModel>().ReverseMap();
+        CreateMap<OrderModel, OrderCreateViewModel>().ReverseMap();
+        CreateMap<OrderModel, OrderUpdateViewModel>().ReverseMap();
     }
 }
