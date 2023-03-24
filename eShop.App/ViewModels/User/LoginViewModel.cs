@@ -1,4 +1,4 @@
-﻿namespace eShop.App.ViewModels;
+﻿namespace eShop.App.ViewModels.User;
 
 public class LoginViewModel
 {

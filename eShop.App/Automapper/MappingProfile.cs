@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using eShop.App.ViewModels;
 using eShop.App.ViewModels.Order;
 using eShop.App.ViewModels.Product;
+using eShop.App.ViewModels.User;
 using eShop.BLL.Models;
 
 namespace eShop.App.Automapper;
