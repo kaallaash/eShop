@@ -26,15 +26,14 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : Ba
     public virtual async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken)
     {
         var entity = await GetByIdAsync(id, cancellationToken);
-        var entityIsNull = entity is null;
 
-        if (entityIsNull)
+        if (entity is not null)
         {
             _context.Remove(entity);
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        return entityIsNull;
+        return entity is not null;
     }
 
     public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken)
@@ -44,7 +43,7 @@ public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : Ba
 
     public virtual async Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken)
     {
-        return await _dbSet.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+        return await _dbSet.AsNoTracking().FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     public virtual async Task<T> UpdateAsync(T obj, CancellationToken cancellationToken)
