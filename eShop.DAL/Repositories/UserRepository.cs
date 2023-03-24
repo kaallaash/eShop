@@ -19,4 +19,10 @@ public class UserRepository : GenericRepositoryAsync<UserEntity>, IUserRepositor
         return  await _context.Users.FirstOrDefaultAsync(
             u => u.Username == login.Username && u.Password == login.Password, cancellationToken);
     }
+
+    public async Task<UserEntity?> GetByUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        return await _context.Users.FirstOrDefaultAsync(
+            u => u.Username == username, cancellationToken);
+    }
 }

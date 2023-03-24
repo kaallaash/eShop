@@ -25,4 +25,11 @@ public class UserService : GenericServiceAsync<UserModel, UserEntity>, IUserServ
 
         return _mapper.Map<UserModel>(userEntity);
     }
+
+    public async Task<UserModel> GetByUsernameAsync(string username, CancellationToken cancellationToken)
+    {
+        var userEntity = await _userRepository.GetByUsernameAsync(username, cancellationToken);
+
+        return _mapper.Map<UserModel>(userEntity);
+    }
 }
