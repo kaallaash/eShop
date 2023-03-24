@@ -86,4 +86,12 @@ public class ProductController : Controller
         await _productService.UpdateAsync(product, cancellationToken);
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    {
+        await _productService.DeleteAsync(id, cancellationToken);
+
+        return View("DeleteCompleted");
+    }
 }

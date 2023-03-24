@@ -2,6 +2,7 @@
 using eShop.App.ViewModels;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
+using eShop.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eShop.App.Controllers;
@@ -52,5 +53,13 @@ public class UserController : Controller
         }
 
         return View("RegisterCompleted");
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    {
+        await _userService.DeleteAsync(id, cancellationToken);
+
+        return View("DeleteCompleted");
     }
 }
