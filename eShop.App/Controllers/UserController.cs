@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using eShop.App.ViewModels;
+using eShop.App.ViewModels.User;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
 using Microsoft.AspNetCore.Mvc;
