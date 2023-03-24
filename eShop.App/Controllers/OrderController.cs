@@ -3,8 +3,6 @@ using eShop.App.ViewModels.Order;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace eShop.App.Controllers;
 
