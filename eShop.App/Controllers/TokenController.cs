@@ -12,8 +12,8 @@ using eShop.App.ViewModels.User;
 
 namespace eShop.App.Controllers;
 
-[Route("api/token")]
-[ApiController]
+//[Route("api/token")]
+//[ApiController]
 public class TokenController : Controller
 {
     private readonly IConfiguration _configuration;

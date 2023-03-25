@@ -20,21 +20,21 @@ public class UserController : Controller
 
     public IActionResult Login() => View(new LoginViewModel());
 
-    [HttpPost]
-    public async Task<IActionResult> Login(LoginViewModel loginViewModel, CancellationToken cancellationToken)
-    {
-        if (!ModelState.IsValid) return View(loginViewModel);
+    //[HttpPost]
+    //public async Task<IActionResult> Login(LoginViewModel loginViewModel, CancellationToken cancellationToken)
+    //{
+    //    if (!ModelState.IsValid) return View(loginViewModel);
 
-        var user = await _userService.GetByLoginAsync(_mapper.Map<LoginBllModel>(loginViewModel), cancellationToken);
+    //    var user = await _userService.GetByLoginAsync(_mapper.Map<LoginBllModel>(loginViewModel), cancellationToken);
 
-        if (user is null)
-        {
-            TempData["Error"] = "Wrong credentials. Please, try again!";
-            return View(loginViewModel);
-        }
+    //    if (user is null)
+    //    {
+    //        TempData["Error"] = "Wrong credentials. Please, try again!";
+    //        return View(loginViewModel);
+    //    }
 
-        return RedirectToAction("Index", "Product");
-    }
+    //    return RedirectToAction("Index", "Product");
+    //}
 
     public IActionResult Register() => View(new RegisterViewModel());
 
