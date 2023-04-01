@@ -2,6 +2,7 @@
 using eShop.App.ViewModels.Product;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,11 +22,18 @@ public class ProductController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
+        //var identity = new ClaimsIdentity(new[] {
+        //    new Claim(ClaimTypes.Name, "username"),
+        //    //new Claim(ClaimTypes.Role, "role")
+        //}, "MyAuthType");
+
+        //HttpContext.User = new ClaimsPrincipal(identity);
+
         var products = await _productService.GetAllAsync(cancellationToken);
         return View(_mapper.Map<IEnumerable<ProductViewModel>>(products));
     }
 
-    [AllowAnonymous]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Details(int id, CancellationToken cancellationToken)
     {
         var product = await _productService.GetByIdAsync(id, cancellationToken);

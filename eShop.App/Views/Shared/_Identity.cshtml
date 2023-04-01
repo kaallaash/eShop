@@ -1,8 +1,11 @@
 ﻿@using eShop.BLL.Interfaces
-
 @inject IUserService UserService;
 
-@if (!User.Identity.IsAuthenticated)
+@{
+    var accessTokenCookie = Context.Request.Cookies["AccessToken"];
+}
+
+@if (accessTokenCookie is null)
 {
     <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="User" asp-action="Login">
         <i class="bi bi-box-arrow-in-right"></i> Log in
@@ -40,8 +43,8 @@ else
         </ul>
     </div>
     <span style="padding: 5px;"></span>
-    <form asp-controller="Token" asp-action="Logout">
-        <button class="btn btn-outline-danger my-2 my-sm-0">
+    <form asp-controller="Product" asp-action="Index">
+        <button class="btn btn-outline-danger my-2 my-sm-0" onclick="logout()">
             <i class="bi bi-box-arrow-in-right"></i> Log out
         </button>
     </form>

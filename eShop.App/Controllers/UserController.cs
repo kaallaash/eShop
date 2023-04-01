@@ -3,6 +3,7 @@ using eShop.App.ViewModels.User;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace eShop.App.Controllers;
 
@@ -32,6 +33,16 @@ public class UserController : Controller
             TempData["Error"] = "Wrong credentials. Please, try again!";
             return View(loginViewModel);
         }
+
+        //if (user.Username is not null)
+        //{
+        //    var identity = new ClaimsIdentity(new[] {
+        //        new Claim(ClaimTypes.Name, user.Username),
+        //        //new Claim(ClaimTypes.Role, "role")
+        //    }, "MyAuthType");
+
+        //    HttpContext.User = new ClaimsPrincipal(identity);
+        //}
 
         return RedirectToAction("Index", "Product");
     }
