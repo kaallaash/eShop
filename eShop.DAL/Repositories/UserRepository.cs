@@ -16,13 +16,13 @@ public class UserRepository : GenericRepositoryAsync<UserEntity>, IUserRepositor
 
     public async Task<UserEntity?> GetByLoginAsync(LoginDalModel login, CancellationToken cancellationToken)
     {
-        return  await _context.Users.FirstOrDefaultAsync(
+        return  await _context.Users.AsNoTracking().FirstOrDefaultAsync(
             u => u.Username == login.Username && u.Password == login.Password, cancellationToken);
     }
 
     public async Task<UserEntity?> GetByUsernameAsync(string username, CancellationToken cancellationToken)
     {
-        return await _context.Users.FirstOrDefaultAsync(
+        return await _context.Users.AsNoTracking().FirstOrDefaultAsync(
             u => u.Username == username, cancellationToken);
     }
 }

@@ -131,18 +131,22 @@ public class TokenController : Controller
 
     }
 
-    private JwtSecurityToken CreateToken(IEnumerable<Claim> authClaims)
+    private SecurityToken CreateToken(IEnumerable<Claim> authClaims)
     {
+        var tokenHandler = new JwtSecurityTokenHandler();
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         _ = int.TryParse(_configuration["JWT:TokenValidityInMinutes"], out var tokenValidityInMinutes);
 
-        var token = new JwtSecurityToken(
-            issuer: _configuration["JWT:Issuer"],
-            audience: _configuration["JWT:Audience"],
-            expires: DateTime.Now.AddMinutes(tokenValidityInMinutes),
-            claims: authClaims,
-            signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
-        );
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Issuer = _configuration["JWT:Issuer"],
+            Audience = _configuration["JWT:Audience"],
+            Subject = new ClaimsIdentity(authClaims),
+            Expires = DateTime.Now.AddMinutes(tokenValidityInMinutes),
+            SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
+        };
+
+        var token = tokenHandler.CreateToken(tokenDescriptor);
 
         return token;
     }

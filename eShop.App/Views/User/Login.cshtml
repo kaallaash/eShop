@@ -1,6 +1,6 @@
 ﻿@model LoginViewModel;
 
-@{ 
+@{
     ViewData["Title"] = "Log in to your account";
 }
 
@@ -10,16 +10,16 @@
             <h4>Log in to your account</h4>
         </p>
 
-        @if(TempData["Error"] != null)
+        @if (TempData["Error"] != null)
         {
             <div class="col-md-12 alert alert-danger">
                 <span><b>Sorry!</b> - @TempData["Error"] </span>
             </div>
         }
-
+        
         <div class="row">
             <div class="col-md-8 offset-2">
-                <form asp-action="Login">
+                <form id="loginForm" asp-action="Login">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input class="btn btn-outline-success float-right" type="submit" value="Log in" />
+                        <input class="btn btn-outline-success float-right" onclick="login()" type="submit" value="Log in" />
                         <a class="btn btn-outline-secondary" asp-controller="Product" asp-action="Index">Cancel</a>
                     </div>
                 </form>

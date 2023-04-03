@@ -1,5 +1,6 @@
 using eShop.App.Automapper;
 using eShop.BLL.DI;
+using eShop.App.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +18,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseMiddleware<RedirectOnUnauthorizedMiddleware>();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
+
+app.UseMiddleware<AuthorizationHeaderMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

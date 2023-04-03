@@ -24,15 +24,15 @@ public class ProductController : Controller
         var products = await _productService.GetAllAsync(cancellationToken);
         return View(_mapper.Map<IEnumerable<ProductViewModel>>(products));
     }
-
-    [AllowAnonymous]
+    
+    [Authorize]
     public async Task<IActionResult> Details(int id, CancellationToken cancellationToken)
     {
         var product = await _productService.GetByIdAsync(id, cancellationToken);
         return View(_mapper.Map<ProductViewModel>(product));
     }
 
-    public async Task<IActionResult> Create()
+    public IActionResult Create()
     {
         return View();
     }
