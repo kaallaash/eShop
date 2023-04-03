@@ -6,13 +6,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using eShop.App.Helpers;
 using eShop.App.Models;
 using eShop.BLL.Models;
 using eShop.App.ViewModels.User;
-using Microsoft.AspNetCore.Authentication;
-using System.Net.Http.Headers;
-using System.Net.Http;
 
 namespace eShop.App.Controllers;
 
@@ -135,7 +131,6 @@ public class TokenController : Controller
 
     }
 
-    //private JwtSecurityToken CreateToken(IEnumerable<Claim> authClaims)
     private SecurityToken CreateToken(IEnumerable<Claim> authClaims)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -152,23 +147,8 @@ public class TokenController : Controller
         };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        var tokenString = tokenHandler.WriteToken(token);
 
         return token;
-
-        
-
-        //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-        //_ = int.TryParse(_configuration["JWT:TokenValidityInMinutes"], out var tokenValidityInMinutes);
-
-        //var token = new JwtSecurityToken(
-        //    issuer: _configuration["JWT:Issuer"],
-        //    audience: _configuration["JWT:Audience"],
-        //    expires: DateTime.Now.AddMinutes(tokenValidityInMinutes),
-        //    claims: authClaims,
-        //    signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
-
-        //return token;
     }
 
     private static string GenerateRefreshToken()

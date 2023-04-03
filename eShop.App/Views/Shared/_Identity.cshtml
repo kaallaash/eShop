@@ -1,11 +1,7 @@
 ﻿@using eShop.BLL.Interfaces
 @inject IUserService UserService;
 
-@{
-    var accessTokenCookie = Context.Request.Cookies["AccessToken"];
-}
-
-@if (accessTokenCookie is null)
+@if (User.Identity is not null && !User.Identity.IsAuthenticated)
 {
     <a class="btn btn-outline-success my-2 my-sm-0" asp-controller="User" asp-action="Login">
         <i class="bi bi-box-arrow-in-right"></i> Log in
@@ -18,8 +14,6 @@
 }
 else
 {
-
-    @*User profile section*@
     <div class="dropdown">
         <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown"
             aria-expanded="false">
@@ -50,9 +44,7 @@ else
     </form>
 }
 
-
-
-
+@*
 <script>
     var tokenKey = "accessToken";
 
@@ -141,4 +133,4 @@ else
         e.preventDefault();
         getData("/api/values/getrole");
     });
-</script>
+</script>*@
