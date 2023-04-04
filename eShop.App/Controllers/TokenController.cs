@@ -48,6 +48,7 @@ public class TokenController : Controller
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
             new Claim(ClaimTypes.Name, user.Username),
+            //new Claim(ClaimTypes.Role, user.Role.ToString()),
         };
 
         var accessToken = CreateToken(claims);

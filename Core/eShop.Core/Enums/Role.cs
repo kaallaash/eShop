@@ -1,4 +1,4 @@
-﻿namespace eShop.DAL.Models;
+﻿namespace eShop.Core.Enums;
 
 public enum Role
 {

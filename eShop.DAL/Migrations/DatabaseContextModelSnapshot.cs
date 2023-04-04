@@ -86,8 +86,8 @@ namespace eShop.DAL.Migrations
                         {
                             Id = -1,
                             Count = 10,
-                            DateCreated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 7, 35, 482, DateTimeKind.Unspecified).AddTicks(5749), new TimeSpan(0, 3, 0, 0, 0)),
-                            DateUpdated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 7, 35, 482, DateTimeKind.Unspecified).AddTicks(5751), new TimeSpan(0, 3, 0, 0, 0)),
+                            DateCreated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 49, 27, 232, DateTimeKind.Unspecified).AddTicks(8435), new TimeSpan(0, 3, 0, 0, 0)),
+                            DateUpdated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 49, 27, 232, DateTimeKind.Unspecified).AddTicks(8437), new TimeSpan(0, 3, 0, 0, 0)),
                             Description = "Electric drill =)",
                             Name = "Drill",
                             Price = 49.99m
@@ -96,8 +96,8 @@ namespace eShop.DAL.Migrations
                         {
                             Id = -2,
                             Count = 25,
-                            DateCreated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 7, 35, 482, DateTimeKind.Unspecified).AddTicks(5754), new TimeSpan(0, 3, 0, 0, 0)),
-                            DateUpdated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 7, 35, 482, DateTimeKind.Unspecified).AddTicks(5754), new TimeSpan(0, 3, 0, 0, 0)),
+                            DateCreated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 49, 27, 232, DateTimeKind.Unspecified).AddTicks(8439), new TimeSpan(0, 3, 0, 0, 0)),
+                            DateUpdated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 49, 27, 232, DateTimeKind.Unspecified).AddTicks(8440), new TimeSpan(0, 3, 0, 0, 0)),
                             Description = "The hammer like my grandfather's",
                             Name = "Hammer",
                             Price = 19.99m
@@ -106,8 +106,8 @@ namespace eShop.DAL.Migrations
                         {
                             Id = -3,
                             Count = 1000,
-                            DateCreated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 7, 35, 482, DateTimeKind.Unspecified).AddTicks(5756), new TimeSpan(0, 3, 0, 0, 0)),
-                            DateUpdated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 7, 35, 482, DateTimeKind.Unspecified).AddTicks(5757), new TimeSpan(0, 3, 0, 0, 0)),
+                            DateCreated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 49, 27, 232, DateTimeKind.Unspecified).AddTicks(8441), new TimeSpan(0, 3, 0, 0, 0)),
+                            DateUpdated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 49, 27, 232, DateTimeKind.Unspecified).AddTicks(8442), new TimeSpan(0, 3, 0, 0, 0)),
                             Description = "Not aluminum",
                             Name = "Nails",
                             Price = 5.99m
@@ -160,8 +160,8 @@ namespace eShop.DAL.Migrations
                         new
                         {
                             Id = -1,
-                            DateCreated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 7, 35, 482, DateTimeKind.Unspecified).AddTicks(5634), new TimeSpan(0, 3, 0, 0, 0)),
-                            DateUpdated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 7, 35, 482, DateTimeKind.Unspecified).AddTicks(5660), new TimeSpan(0, 3, 0, 0, 0)),
+                            DateCreated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 49, 27, 232, DateTimeKind.Unspecified).AddTicks(8275), new TimeSpan(0, 3, 0, 0, 0)),
+                            DateUpdated = new DateTimeOffset(new DateTime(2023, 4, 4, 4, 49, 27, 232, DateTimeKind.Unspecified).AddTicks(8294), new TimeSpan(0, 3, 0, 0, 0)),
                             Email = "adminEmail@eShop.com",
                             Password = "admin",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using eShop.DAL.Entities;
-using eShop.DAL.Models;
+using eShop.Core.Enums;
 
 namespace eShop.DAL.Context;
 
