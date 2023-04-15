@@ -38,7 +38,7 @@ public class TokenController : Controller
 
         var user = await _userService.GetByLoginAsync(_mapper.Map<LoginBllModel>(loginModel), cancellationToken);
 
-        if (user?.Username is null)
+        if (user?.Username is null || user?.Role is null)
         {
             return BadRequest("Invalid credentials");
         }
@@ -48,6 +48,7 @@ public class TokenController : Controller
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
             new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Role, user.Role.ToString()),
         };
 
         var accessToken = CreateToken(claims);

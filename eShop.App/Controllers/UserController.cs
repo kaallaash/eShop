@@ -2,7 +2,10 @@
 using eShop.App.ViewModels.User;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
+using eShop.Core.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace eShop.App.Controllers;
 
@@ -43,7 +46,10 @@ public class UserController : Controller
     {
         if (!ModelState.IsValid) return View(registerVievModel);
 
-        var user = await _userService.CreateAsync(_mapper.Map<UserModel>(registerVievModel), cancellationToken);
+        var userModel = _mapper.Map<UserModel>(registerVievModel);
+        userModel.Role = Role.User;
+
+        var user = await _userService.CreateAsync(userModel, cancellationToken);
 
         if (user is null)
         {
@@ -54,6 +60,7 @@ public class UserController : Controller
         return View("RegisterCompleted");
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {

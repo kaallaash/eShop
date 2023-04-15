@@ -26,7 +26,7 @@ else
                 </a>
             </li>
 
-            @if (User.IsInRole("Admin"))
+           @if (User.IsInRole("Admin"))
             {
                 <li>
                     <a class="dropdown-item" asp-controller="User" asp-action="GetAll">
