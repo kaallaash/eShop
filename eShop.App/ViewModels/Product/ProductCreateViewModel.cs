@@ -1,9 +1,13 @@
-﻿namespace eShop.App.ViewModels.Product;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace eShop.App.ViewModels.Product;
 
 public class ProductCreateViewModel
 {
     public string? Name { get; set; }
+    [Range(0.01, (double)decimal.MaxValue)]
     public decimal Price { get; set; }
     public string? Description { get; set; }
+    [Range(0, int.MaxValue)]
     public int Count { get; set; }
 }
