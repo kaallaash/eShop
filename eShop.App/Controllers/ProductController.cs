@@ -32,11 +32,13 @@ public class ProductController : Controller
         return View(_mapper.Map<ProductViewModel>(product));
     }
 
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         return View();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Create(ProductCreateViewModel productCreateViewModel, CancellationToken cancellationToken)
     {
@@ -56,6 +58,7 @@ public class ProductController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
     {
         var product = await _productService.GetByIdAsync(id, cancellationToken);
@@ -68,6 +71,7 @@ public class ProductController : Controller
         return View(_mapper.Map<ProductViewModel>(product));
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut]
     public async Task<IActionResult> Edit(
         int id, 
@@ -86,6 +90,7 @@ public class ProductController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
