@@ -22,12 +22,8 @@
                                 <input asp-for="Name" class="form-control" />
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
-                            
-
-                            @*<td> @Html.Editor("Price", @String.Format("{0:N0}", 0.01))<td>*@
                             <div class="form-group">
                                 <label asp-for="Price" class="control-label"></label>
-                                @*<input asp-for="Price" type="text" step="0,01" class="form-control" />*@
                                 <input id="price" asp-for="Price" type="number" step="0.01" class="form-control" />
                                 <span asp-validation-for="Price" class="text-danger"></span>
                             </div>
