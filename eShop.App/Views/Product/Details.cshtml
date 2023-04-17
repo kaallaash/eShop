@@ -15,14 +15,17 @@
                                 <h5 class="card-title">
                                     @Model.Name
                                 </h5>
-                                <div style="display: flex;">
-                                    <a class="btn btn-outline-dark" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div style="display: flex;">
+                                        <a class="btn btn-outline-dark" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-square"></i>Edit</a>
 
-                                    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
-                                        <input type="hidden" name="delete" value="delete" />
-                                        <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
-                                    </form>
-                                </div>
+                                        <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                                            <input type="hidden" name="delete" value="delete" />
+                                            <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
+                                        </form>
+                                    </div>
+                                }
                             </div>
                         </p>
                     </div>
