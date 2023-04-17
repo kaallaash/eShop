@@ -13,11 +13,18 @@
                     <div class="col-md-12">
                         <div class="card-header text-white bg-info">
                             <p class="card-text">
-                                <h5 class="card-title">
+                                <h5 class="card-title" style="display: flex; align-items: center; justify-content: space-between;">
                                     @item.Name
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+                                        <div style="display: flex;">
+                                            <a class="btn btn-outline-dark" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+
+                                            <form asp-action="Delete" asp-route-id="@item.Id" method="post">
+                                                <input type="hidden" name="delete" value="delete" />
+                                                <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
+                                            </form>
+                                        </div>
                                     }
                                 </h5>
                             </p>
