@@ -17,7 +17,7 @@ else
     <div class="dropdown">
         <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown"
             aria-expanded="false">
-            <i class="bi bi-person-badge"></i> Hello <span id="userName"></span>
+            <i class="bi bi-person-badge"></i> Hello @UserService.GetByUsernameAsync(User?.Identity?.Name, default).Result.FirstName <span id="userName"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="profile-btn">
             <li>
