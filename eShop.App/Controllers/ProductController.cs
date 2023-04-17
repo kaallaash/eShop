@@ -72,7 +72,7 @@ public class ProductController : Controller
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPut]
+    [HttpPost]
     public async Task<IActionResult> Edit(
         int id, 
         ProductUpdateViewModel productUpdateViewModel,
@@ -91,7 +91,7 @@ public class ProductController : Controller
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpDelete]
+    [HttpPost]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
         await _productService.DeleteAsync(id, cancellationToken);
