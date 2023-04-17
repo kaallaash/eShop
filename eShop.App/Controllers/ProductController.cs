@@ -68,7 +68,7 @@ public class ProductController : Controller
             return View("NotFound");
         }
 
-        return View(_mapper.Map<ProductViewModel>(product));
+        return View(_mapper.Map<ProductUpdateViewModel>(product));
     }
 
     [Authorize(Roles = "Admin")]
