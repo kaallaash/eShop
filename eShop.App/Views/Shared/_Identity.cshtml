@@ -25,8 +25,8 @@
 else
 {
     <div class="dropdown">
-        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown"
-            aria-expanded="false">
+        <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-bs-toggle="dropdown"
+                aria-expanded="false">
             <i class="bi bi-person-badge"></i> Hello @user?.FirstName
         </button>
         <ul class="dropdown-menu" aria-labelledby="profile-btn">
@@ -36,7 +36,7 @@ else
                 </a>
             </li>
 
-           @if (User.IsInRole("Admin"))
+            @if (User.IsInRole("Admin"))
             {
                 <li>
                     <a class="dropdown-item" asp-controller="User" asp-action="GetAll">
@@ -46,6 +46,7 @@ else
             }
         </ul>
     </div>
+
     <span style="padding: 5px;"></span>
     <form asp-controller="Product" asp-action="Index">
         <button class="btn btn-outline-danger my-2 my-sm-0" onclick="logout()">
