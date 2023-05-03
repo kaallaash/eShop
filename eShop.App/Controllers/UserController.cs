@@ -1,11 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Runtime.CompilerServices;
+using AutoMapper;
 using eShop.App.ViewModels.User;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
 using eShop.Core.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace eShop.App.Controllers;
 
@@ -20,6 +20,10 @@ public class UserController : Controller
         _userService = userService;
         _mapper = mapper;
     }
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetAll() => 
+        View(await _userService.GetAllAsync(default));
 
     public IActionResult Login() => View(new LoginViewModel());
 
