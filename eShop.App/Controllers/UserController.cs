@@ -1,10 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using AutoMapper;
-using eShop.App.ViewModels.Product;
+﻿using AutoMapper;
 using eShop.App.ViewModels.User;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
-using eShop.BLL.Services;
 using eShop.Core.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
