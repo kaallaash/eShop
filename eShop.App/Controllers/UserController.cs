@@ -21,9 +21,14 @@ public class UserController : Controller
     }
 
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> GetAll() => 
+    public async Task<IActionResult> Details(int id, CancellationToken cancellationToken) =>
+        View(_mapper.Map<UserDetailsViewModel>(
+            await _userService.GetByIdAsync(id, cancellationToken)));
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken) => 
         View(_mapper.Map<List<UserViewModel>>(
-            await _userService.GetAllAsync(default)));
+            await _userService.GetAllAsync(cancellationToken)));
 
     public IActionResult Login() => View(new LoginViewModel());
 
