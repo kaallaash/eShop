@@ -70,8 +70,24 @@ public class UserController : Controller
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPost]
     public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
+    {
+        var product = await _userService.GetByIdAsync(id, cancellationToken);
+
+        if (product is null) 
+        {
+            return View("NotFound");
+        }
+
+        return View(_mapper.Map<UserUpdateViewModel>(product));
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
+    public async Task<IActionResult> Edit(
+        int id,
+        UserUpdateViewModel userUpdateViewModel, 
+        CancellationToken cancellationToken)
     {
         var user = await _userService.GetByIdAsync(id, cancellationToken);
 
