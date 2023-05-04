@@ -11,10 +11,16 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<LoginBllModel, LoginViewModel>().ReverseMap();
+
+        CreateMap<UserModel, UserViewModel>().ReverseMap();
+        CreateMap<UserModel, UserDetailsViewModel>().ReverseMap();
         CreateMap<UserModel, RegisterViewModel>().ReverseMap();
+        CreateMap<UserModel, UserUpdateViewModel>().ReverseMap();
+
         CreateMap<ProductModel, ProductViewModel>().ReverseMap();
         CreateMap<ProductModel, ProductCreateViewModel>().ReverseMap();
         CreateMap<ProductModel, ProductUpdateViewModel>().ReverseMap();
+
         CreateMap<OrderModel, OrderViewModel>().ReverseMap();
         CreateMap<OrderModel, OrderCreateViewModel>().ReverseMap();
         CreateMap<OrderModel, OrderUpdateViewModel>().ReverseMap();
