@@ -1,8 +1,10 @@
 ﻿using System.Runtime.CompilerServices;
 using AutoMapper;
+using eShop.App.ViewModels.Product;
 using eShop.App.ViewModels.User;
 using eShop.BLL.Interfaces;
 using eShop.BLL.Models;
+using eShop.BLL.Services;
 using eShop.Core.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +25,8 @@ public class UserController : Controller
 
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAll() => 
-        View(await _userService.GetAllAsync(default));
+        View(_mapper.Map<List<UserViewModel>>(
+            await _userService.GetAllAsync(default)));
 
     public IActionResult Login() => View(new LoginViewModel());
 
@@ -65,7 +68,21 @@ public class UserController : Controller
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpDelete]
+    [HttpPost]
+    public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
+    {
+        var user = await _userService.GetByIdAsync(id, cancellationToken);
+
+        if (user is null)
+        {
+            return View("NotFound");
+        }
+
+        return View(_mapper.Map<UserUpdateViewModel>(user));
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
         await _userService.DeleteAsync(id, cancellationToken);
