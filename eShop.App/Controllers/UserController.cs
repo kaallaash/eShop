@@ -5,7 +5,6 @@ using eShop.BLL.Models;
 using eShop.Core.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace eShop.App.Controllers;
 
@@ -20,6 +19,16 @@ public class UserController : Controller
         _userService = userService;
         _mapper = mapper;
     }
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Details(int id, CancellationToken cancellationToken) =>
+        View(_mapper.Map<UserDetailsViewModel>(
+            await _userService.GetByIdAsync(id, cancellationToken)));
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken) => 
+        View(_mapper.Map<List<UserViewModel>>(
+            await _userService.GetAllAsync(cancellationToken)));
 
     public IActionResult Login() => View(new LoginViewModel());
 
@@ -61,7 +70,39 @@ public class UserController : Controller
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpDelete]
+    public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
+    {
+        var user = await _userService.GetByIdAsync(id, cancellationToken);
+
+        if (user is null) 
+        {
+            return View("NotFound");
+        }
+
+        return View(_mapper.Map<UserUpdateViewModel>(user));
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
+    public async Task<IActionResult> Edit(
+        int id,
+        UserUpdateViewModel userUpdateViewModel, 
+        CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(userUpdateViewModel);
+        }
+
+        var user = _mapper.Map<UserModel>(userUpdateViewModel);
+        user.Id = id;
+
+        await _userService.UpdateAsync(user, cancellationToken);
+        return RedirectToAction(nameof(GetAll));
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPost]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
         await _userService.DeleteAsync(id, cancellationToken);
