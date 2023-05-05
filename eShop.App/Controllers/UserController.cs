@@ -72,14 +72,14 @@ public class UserController : Controller
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id, CancellationToken cancellationToken)
     {
-        var product = await _userService.GetByIdAsync(id, cancellationToken);
+        var user = await _userService.GetByIdAsync(id, cancellationToken);
 
-        if (product is null) 
+        if (user is null) 
         {
             return View("NotFound");
         }
 
-        return View(_mapper.Map<UserUpdateViewModel>(product));
+        return View(_mapper.Map<UserUpdateViewModel>(user));
     }
 
     [Authorize(Roles = "Admin")]
@@ -89,14 +89,16 @@ public class UserController : Controller
         UserUpdateViewModel userUpdateViewModel, 
         CancellationToken cancellationToken)
     {
-        var user = await _userService.GetByIdAsync(id, cancellationToken);
-
-        if (user is null)
+        if (!ModelState.IsValid)
         {
-            return View("NotFound");
+            return View(userUpdateViewModel);
         }
 
-        return View(_mapper.Map<UserUpdateViewModel>(user));
+        var user = _mapper.Map<UserModel>(userUpdateViewModel);
+        user.Id = id;
+
+        await _userService.UpdateAsync(user, cancellationToken);
+        return RedirectToAction(nameof(GetAll));
     }
 
     [Authorize(Roles = "Admin")]
