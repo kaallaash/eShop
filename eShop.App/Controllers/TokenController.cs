@@ -71,7 +71,7 @@ public class TokenController : Controller
 
     [HttpPost]
     [Route("refresh-token")]
-    public async Task<IActionResult> RefreshToken(TokenModel tokenModel, CancellationToken cancellationToken)
+    public async Task<IActionResult> RefreshToken(TokenAppModel tokenModel, CancellationToken cancellationToken)
     {
         var accessToken = tokenModel.AccessToken;
         var refreshToken = tokenModel.RefreshToken;
