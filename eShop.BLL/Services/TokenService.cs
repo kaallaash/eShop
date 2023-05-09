@@ -51,7 +51,7 @@ public class TokenService : ITokenService
         user.RefreshToken = newRefreshToken;
         user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
 
-        await _userService.UpdateAsync(user, cancellationToken);
+        var updatedUser = await _userService.UpdateAsync(user, cancellationToken);
 
         return new TokenDetailsModel()
         {
@@ -70,16 +70,20 @@ public class TokenService : ITokenService
 
         if (principal?.Identity?.Name is null)
         {
-            throw new ArgumentException("Invalid access token or refresh token");
+            return null;
+            //return await Task.FromException<TokenDetailsModel>(
+            //    new ArgumentException("Invalid access token or refresh token"));
         }
 
         var userName = principal.Identity.Name;
 
         var user = await _userService.GetByUsernameAsync(userName, cancellationToken);
 
-        if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime >= DateTime.Now)
+        if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
         {
-            throw new ArgumentException("Invalid access token or refresh token");
+            return null;
+            //return await Task.FromException<TokenDetailsModel>(
+            //    new ArgumentException("Invalid access token or refresh token"));
         }
 
         var newAccessToken = CreateToken(principal.Claims.ToList());
@@ -98,6 +102,41 @@ public class TokenService : ITokenService
             RefreshToken = newRefreshToken,
             RefreshTokenExpiryTime = user.RefreshTokenExpiryTime
         };
+    }
+
+    public async Task<bool> IsAccessTokenExpired(string token, CancellationToken cancellationToken)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var validationParameters = new TokenValidationParameters
+        {
+            //ValidateIssuerSigningKey = true,
+            //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"])),
+            //ValidateIssuer = false,
+            //ValidateAudience = false,
+            //ClockSkew = TimeSpan.Zero
+            ValidateAudience = false,
+            ValidateIssuer = false,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"])),
+            ValidateLifetime = false
+        };
+
+        try
+        {
+            var claimsPrincipal = tokenHandler.ValidateToken(token, validationParameters, out var validatedToken);
+
+            if (validatedToken != null)
+            {
+                return DateTime.UtcNow > validatedToken.ValidTo; ;
+            }
+        }
+        catch (Exception)
+        {
+            return false;
+            // token validation failed
+        }
+
+        return true;
     }
 
     private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
@@ -148,4 +187,14 @@ public class TokenService : ITokenService
         rng.GetBytes(randomNumber);
         return Convert.ToBase64String(randomNumber);
     }
+
+    //private async static Task SetCookie(string name, )
+    //{
+    //    var cookieOptions = new CookieOptions
+    //    {
+    //        HttpOnly = true,
+    //        Expires = DateTime.UtcNow.AddMinutes(30), // время жизни куки - 30 минут
+    //    };
+    //    Response.Cookies.Append("mycookie", "cookievalue", cookieOptions);
+    //}
 }
