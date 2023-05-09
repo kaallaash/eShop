@@ -4,9 +4,11 @@ using eShop.BLL.Models.Token;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.ConstrainedExecution;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using eShop.Core.Enums;
 
 namespace eShop.BLL.Services;
 
@@ -35,13 +37,20 @@ public class TokenService : ITokenService
         {
             throw new ArgumentException("A user with such username or password was not found");
         }
+        
+        var roleValue = user.Role.ToString();
+
+        if (roleValue is null)
+        {
+            roleValue = Role.User.ToString();
+        }
 
         var claims = new[] {
             new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
             new Claim(ClaimTypes.Name, user.Username),
-            new Claim(ClaimTypes.Role, user.Role.ToString()),
+            new Claim(ClaimTypes.Role, roleValue),
         };
 
         var accessToken = CreateToken(claims);
@@ -51,7 +60,7 @@ public class TokenService : ITokenService
         user.RefreshToken = newRefreshToken;
         user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
 
-        var updatedUser = await _userService.UpdateAsync(user, cancellationToken);
+        await _userService.UpdateAsync(user, cancellationToken);
 
         return new TokenDetailsModel()
         {
@@ -104,16 +113,11 @@ public class TokenService : ITokenService
         };
     }
 
-    public async Task<bool> IsAccessTokenExpired(string token, CancellationToken cancellationToken)
+    public Task<bool> IsAccessTokenExpired(string token, CancellationToken cancellationToken)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var validationParameters = new TokenValidationParameters
         {
-            //ValidateIssuerSigningKey = true,
-            //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"])),
-            //ValidateIssuer = false,
-            //ValidateAudience = false,
-            //ClockSkew = TimeSpan.Zero
             ValidateAudience = false,
             ValidateIssuer = false,
             ValidateIssuerSigningKey = true,
@@ -127,16 +131,16 @@ public class TokenService : ITokenService
 
             if (validatedToken != null)
             {
-                return DateTime.UtcNow > validatedToken.ValidTo; ;
+                return Task.FromResult(DateTime.UtcNow > validatedToken.ValidTo);
             }
         }
         catch (Exception)
         {
-            return false;
+            return Task.FromResult(false);
             // token validation failed
         }
 
-        return true;
+        return Task.FromResult(true);
     }
 
     private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
@@ -187,14 +191,4 @@ public class TokenService : ITokenService
         rng.GetBytes(randomNumber);
         return Convert.ToBase64String(randomNumber);
     }
-
-    //private async static Task SetCookie(string name, )
-    //{
-    //    var cookieOptions = new CookieOptions
-    //    {
-    //        HttpOnly = true,
-    //        Expires = DateTime.UtcNow.AddMinutes(30), // время жизни куки - 30 минут
-    //    };
-    //    Response.Cookies.Append("mycookie", "cookievalue", cookieOptions);
-    //}
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using eShop.BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 using eShop.BLL.Models;
 using eShop.App.ViewModels.User;
 using eShop.BLL.Models.Token;
