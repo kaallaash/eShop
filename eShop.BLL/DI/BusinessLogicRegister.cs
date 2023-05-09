@@ -17,6 +17,7 @@ public static class BusinessLogicRegister
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<ITokenService, TokenService>();
         services.AddDataContext(configuration);
     }
 }

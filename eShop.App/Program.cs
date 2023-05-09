@@ -24,6 +24,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseMiddleware<JwtMiddleware>();
 app.UseMiddleware<AuthorizationHeaderMiddleware>();
 
 app.UseAuthentication();

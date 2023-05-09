@@ -1,4 +1,4 @@
-﻿namespace eShop.App.Models;
+﻿namespace eShop.BLL.Models.Token;
 
 public class TokenModel
 {

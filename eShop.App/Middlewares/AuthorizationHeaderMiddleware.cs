@@ -11,10 +11,8 @@ public class AuthorizationHeaderMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        // Получить токен из кук
         var accessToken = context.Request.Cookies["accessToken"];
-
-        // Установить заголовок Authorization, если токен найден
+        
         if (!string.IsNullOrEmpty(accessToken))
         {
             context.Request.Headers.Add("Authorization", $"Bearer {accessToken}");
